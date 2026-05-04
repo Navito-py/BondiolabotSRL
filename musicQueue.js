@@ -141,13 +141,20 @@ function playNext(guildId, options = {}) {
         ? path.join(process.cwd(), "yt-dlp.exe")
         : "yt-dlp";
 
-    const yt = spawn(ytdlpPath, [
-        "-f", "bestaudio",
-        "-o", "-",
-        "--no-playlist",
-        song.playTarget
-    ]);
-
+        const yt = spawn(ytdlpPath, [
+            "--js-runtimes",
+            "deno:/root/.deno/bin/deno",
+            "--remote-components",
+            "ejs:github",
+            "--cookies",
+            "/root/BondiolabotSRL/cookies.txt",
+            "-f",
+            "bestaudio",
+            "-o",
+            "-",
+            "--no-playlist",
+            song.playTarget
+        ]);
     queue.currentProcess = yt;
 
     yt.stderr.on("data", data => {
