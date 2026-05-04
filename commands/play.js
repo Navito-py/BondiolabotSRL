@@ -6,7 +6,7 @@ module.exports = {
         .setName("play")
         .setDescription("Reproduce musica de YouTube")
         .addStringOption(option =>
-            option.setName("url/name")
+            option.setName("url-name")
                 .setDescription("URL de YouTube o texto para buscar")
                 .setRequired(true)
         ),
@@ -19,7 +19,7 @@ module.exports = {
             return interaction.editReply("Tenes que estar en un canal de voz");
         }
 
-        const url = interaction.options.getString("url");
+        const url = interaction.options.getString("url-name");
         const result = await enqueue(interaction.guild.id, channel, url, interaction.user.username);
         const songName = result.song.isSearch ? `busqueda: ${result.song.title}` : result.song.title;
 
