@@ -137,7 +137,9 @@ function playNext(guildId, options = {}) {
 
     clearIdleDisconnect(queue);
 
-    const ytdlpPath = path.join(process.cwd(), "yt-dlp.exe");
+    const ytdlpPath = process.platform === "win32"
+        ? path.join(process.cwd(), "yt-dlp.exe")
+        : "yt-dlp";
 
     const yt = spawn(ytdlpPath, [
         "-f", "bestaudio",
